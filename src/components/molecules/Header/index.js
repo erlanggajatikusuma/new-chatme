@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 35,
     flexDirection: 'row',
   },
-  back: {paddingVertical: 5, paddingRight: 8},
+  back: {paddingVertical: 5},
   title: {
     color: '#7E98DF',
     fontSize: 22,

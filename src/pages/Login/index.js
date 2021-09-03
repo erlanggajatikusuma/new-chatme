@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, Header, Link, TextInput} from '../../components';
 import {colors} from '../../utils';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const [isHide, setHide] = useState(true);
   const handlePassword = () => {
     setHide(!isHide);
@@ -25,13 +25,17 @@ const Login = () => {
       />
       <Gap height={35} />
       <View style={styles.linkContainer}>
-        <Link title="Forgot Password?" size={16} />
+        <Link
+          title="Forgot Password?"
+          onPress={() => navigation.navigate('Forgot')}
+          size={16}
+        />
       </View>
       <View>
         <Button text="Login" />
         <View style={styles.signup}>
           <Text>Don't have account? </Text>
-          <Link title="Sign Up" />
+          <Link title="Sign Up" onPress={() => navigation.navigate('SignUp')} />
         </View>
       </View>
     </View>
