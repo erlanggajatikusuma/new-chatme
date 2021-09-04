@@ -3,6 +3,7 @@
 import * as React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
+  ChatScreen,
   Contacts,
   ForgotPassword,
   Login,
@@ -81,6 +82,11 @@ const Router = () => {
       <Stack.Screen
         name="Home"
         component={MyDrawer}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ChatScreen"
+        component={ChatScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

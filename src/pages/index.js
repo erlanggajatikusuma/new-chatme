@@ -5,6 +5,7 @@ import ForgotPassword from './ForgotPassword';
 import Messages from './Messages';
 import Profile from './Profile';
 import Contacts from './Contacts';
+import ChatScreen from './ChatScreen';
 
 export {
   SplashScreen,
@@ -14,4 +15,5 @@ export {
   Messages,
   Profile,
   Contacts,
+  ChatScreen,
 };

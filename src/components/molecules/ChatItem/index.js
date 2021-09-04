@@ -1,27 +1,12 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {colors} from '../../../utils';
+import IsMe from './IsMe';
+import Other from './Other';
 
-const ChatItem = ({image, name, chat, onPress}) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.container}>
-        <Image source={image} />
-        <View style={styles.chatContent}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.chat}>{chat}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
+const ChatItem = ({isMe, text, date, photo}) => {
+  if (isMe) {
+    return <IsMe text={text} date={date} />;
+  }
+  return <Other text={text} date={date} photo={photo} />;
 };
 
 export default ChatItem;
-
-const styles = StyleSheet.create({
-  container: {flexDirection: 'row', alignItems: 'center', marginBottom: 28},
-  image: {borderRadius: 30, width: 82, height: 82},
-  chatContent: {marginLeft: 15},
-  name: {color: colors.black1, fontSize: 23, fontWeight: 'bold'},
-  chat: {color: colors.secondary, fontSize: 16},
-});
