@@ -32,7 +32,7 @@ const Login = ({navigation}) => {
         />
       </View>
       <View>
-        <Button text="Login" />
+        <Button text="Login" onPress={() => navigation.replace('Home')} />
         <View style={styles.signup}>
           <Text>Don't have account? </Text>
           <Link title="Sign Up" onPress={() => navigation.navigate('SignUp')} />

@@ -1,8 +1,24 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {IcBack} from '../../../assets';
+import {IcBack, IcMenu, IcSearch} from '../../../assets';
+import {colors} from '../../../utils';
 
-const Header = ({title, back, onPress}) => {
+const Header = ({title, back, main, onPress}) => {
+  if (main) {
+    return (
+      <View style={[styles.container, {paddingTop: 50}]}>
+        <Text style={styles.label}>Chatme</Text>
+        <View style={styles.buttonContent}>
+          <TouchableOpacity>
+            <IcSearch />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPress} style={styles.menu}>
+            <IcMenu />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       {back && (
@@ -31,4 +47,11 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
   },
+  label: {fontSize: 30, color: colors.secondary, fontWeight: 'bold'},
+  buttonContent: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  menu: {marginLeft: 30},
 });
