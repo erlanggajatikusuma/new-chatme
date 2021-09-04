@@ -7,9 +7,16 @@ import Router from './router';
 
 const MainApp = () => {
   return (
-    <NavigationContainer>
-      <Router />
-    </NavigationContainer>
+    <>
+      <StatusBar
+        backgroundColor="transparent"
+        translucent={true}
+        barStyle="dark-content"
+      />
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    </>
   );
 };
 

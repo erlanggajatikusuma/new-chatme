@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -66,7 +67,7 @@ export default ChatScreen;
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    marginVertical: 15,
+    marginVertical: StatusBar.currentHeight,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 27,
