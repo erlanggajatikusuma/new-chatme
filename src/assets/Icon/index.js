@@ -6,6 +6,10 @@ import IcMenu from './ic-menu.svg';
 import IcSend from './ic-send.svg';
 import IcSendActive from './ic-send-active.svg';
 import IcProfileMenu from './ic-profile-menu.svg';
+import IcInvite from './ic-invite.svg';
+import IcInviteF from './ic-invitef.png';
+import IcContacts from './ic-contacts.png';
+import IcSettings from './ic-settings.svg';
 
 export {
   IcEye,
@@ -16,4 +20,8 @@ export {
   IcSend,
   IcSendActive,
   IcProfileMenu,
+  IcInvite,
+  IcInviteF,
+  IcContacts,
+  IcSettings,
 };

@@ -13,8 +13,8 @@ import {
   SplashScreen,
 } from '../pages';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {IcContact} from '../assets';
 import {colors} from '../utils';
+import {DrawerContent} from '../components';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,6 +23,7 @@ const Stack = createNativeStackNavigator();
 function MyDrawer() {
   return (
     <Drawer.Navigator
+      drawerContent={props => <DrawerContent {...props} />}
       initialRouteName="Messages"
       screenOptions={{
         drawerPosition: 'right',
@@ -35,12 +36,7 @@ function MyDrawer() {
       <Drawer.Screen
         name="Messages"
         component={Messages}
-        options={{
-          headerShown: false,
-          drawerIcon: ({color, size}) => (
-            <IcContact size={size} color={color} />
-          ),
-        }}
+        options={{headerShown: false}}
       />
       <Drawer.Screen
         name="Profile"
