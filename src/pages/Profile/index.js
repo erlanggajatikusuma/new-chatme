@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -9,8 +9,39 @@ import {
 } from 'react-native';
 import {IcBack, IcCamera} from '../../assets';
 import {colors} from '../../utils';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const Profile = ({navigation}) => {
+  const [photo, setPhoto] = useState('');
+
+  const getImage = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 0.3,
+        maxHeight: 200,
+        maxWidth: 200,
+        includeBase64: true,
+      },
+      response => {
+        console.log('RES IMAGE ==> ', response);
+        if (response.didCancel || response.error) {
+          // showError('Oops, sepertinya anda tidak memilih fotonya');
+          // showMessage({
+          //   message: 'Oops, sepertinya anda tidak memilih fotonya',
+          //   type: 'default',
+          //   backgroundColor: colors.error,
+          //   color: colors.white,
+          // });
+        } else {
+          const base64Photo = `data:${response.type};base64, ${response.base64}`;
+          const source = {uri: response.uri};
+          // setPhotoDB(base64Photo);
+          setPhoto(source);
+        }
+      },
+    );
+  };
   return (
     <View style={styles.page}>
       <StatusBar
@@ -31,7 +62,10 @@ const Profile = ({navigation}) => {
       <View>
         <View style={styles.imgContainer}>
           <Image style={styles.img} />
-          <TouchableOpacity activeOpacity={0.5} style={styles.cameraContainer}>
+          <TouchableOpacity
+            activeOpacity={0.5}
+            style={styles.cameraContainer}
+            onPress={getImage}>
             <Image source={IcCamera} style={styles.camera} />
           </TouchableOpacity>
         </View>
