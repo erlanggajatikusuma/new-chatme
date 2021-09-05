@@ -11,6 +11,7 @@ import IcInviteF from './ic-invitef.png';
 import IcContacts from './ic-contacts.png';
 import IcSettings from './ic-settings.svg';
 import IcCamera from './ic-camera.png';
+import IcDelete from './delete.png';
 
 export {
   IcEye,
@@ -26,4 +27,5 @@ export {
   IcContacts,
   IcSettings,
   IcCamera,
+  IcDelete,
 };
