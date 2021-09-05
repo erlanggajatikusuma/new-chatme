@@ -9,6 +9,7 @@ import {
   Login,
   Messages,
   Profile,
+  QRScreen,
   SignUp,
   SplashScreen,
 } from '../pages';
@@ -83,6 +84,11 @@ const Router = () => {
       <Stack.Screen
         name="ChatScreen"
         component={ChatScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="QRScreen"
+        component={QRScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

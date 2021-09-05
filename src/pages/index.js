@@ -6,6 +6,7 @@ import Messages from './Messages';
 import Profile from './Profile';
 import Contacts from './Contacts';
 import ChatScreen from './ChatScreen';
+import QRScreen from './QRScreen';
 
 export {
   SplashScreen,
@@ -16,4 +17,5 @@ export {
   Profile,
   Contacts,
   ChatScreen,
+  QRScreen,
 };

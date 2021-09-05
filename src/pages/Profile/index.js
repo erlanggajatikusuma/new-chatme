@@ -111,10 +111,12 @@ const Profile = ({navigation}) => {
         </View>
         <View>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>Settings</Text>
-          <View style={styles.setting}>
+          <TouchableOpacity
+            style={styles.setting}
+            onPress={() => navigation.navigate('QRScreen')}>
             <Image source={Qrcode} style={styles.qr} />
             <Text style={styles.text}>Qr Code</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.setting}>
             <Image source={IcDelete} style={styles.qr} />
             <Text style={styles.text}>Delete account</Text>
