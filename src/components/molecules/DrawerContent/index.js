@@ -19,18 +19,19 @@ const DrawerContent = props => {
               <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
                 <IcBack style={{transform: [{rotate: '180deg'}]}} />
               </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate('Profile')}>
+              <TouchableOpacity>
                 <IcSettings />
               </TouchableOpacity>
             </View>
             {/* PROFILE */}
-            <View style={styles.profileContainer}>
+            <TouchableOpacity
+              style={styles.profileContainer}
+              onPress={() => props.navigation.navigate('Profile')}>
               <Image style={styles.img} />
               <Text numberOfLines={3} style={styles.name}>
                 Gloria Mickenny
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.drawerWrapper}>
             <DrawerItem
