@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {colors} from '../../../utils';
 
-const Popup = ({show, onPressOut}) => {
+const Popup = ({show, onPressOut, gallery, photo}) => {
   return (
     <Modal
       animationType={'fade'}
@@ -22,7 +22,12 @@ const Popup = ({show, onPressOut}) => {
         onPressOut={onPressOut}>
         <TouchableWithoutFeedback>
           <View style={styles.content}>
-            <Text style={styles.contentTitle}>Hi 👋!</Text>
+            <TouchableOpacity style={styles.button} onPress={gallery}>
+              <Text style={styles.contentTitle}>choose from gallery</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={photo}>
+              <Text style={styles.contentTitle}>Take a picture</Text>
+            </TouchableOpacity>
           </View>
         </TouchableWithoutFeedback>
       </TouchableOpacity>
@@ -40,14 +45,21 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: colors.white,
-    padding: 22,
+    paddingHorizontal: 22,
+    height: 190,
     justifyContent: 'center',
-    alignItems: 'center',
     borderRadius: 4,
     borderColor: 'rgba(0, 0, 0, 0.1)',
   },
+  button: {
+    borderBottomWidth: 1,
+    borderColor: colors.gray,
+  },
   contentTitle: {
-    fontSize: 20,
-    marginBottom: 12,
+    fontSize: 16,
+    marginVertical: 10,
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    paddingVertical: 10,
   },
 });

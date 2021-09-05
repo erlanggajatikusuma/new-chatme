@@ -45,6 +45,35 @@ const Profile = ({navigation}) => {
     );
   };
 
+  const takePhoto = () => {
+    launchCamera(
+      {
+        mediaType: 'photo',
+        quality: 0.3,
+        maxHeight: 200,
+        maxWidth: 200,
+        includeBase64: true,
+      },
+      response => {
+        console.log('RES IMAGE ==> ', response);
+        if (response.didCancel || response.error) {
+          // showError('Oops, sepertinya anda tidak memilih fotonya');
+          // showMessage({
+          //   message: 'Oops, sepertinya anda tidak memilih fotonya',
+          //   type: 'default',
+          //   backgroundColor: colors.error,
+          //   color: colors.white,
+          // });
+        } else {
+          const base64Photo = `data:${response.type};base64, ${response.base64}`;
+          const source = {uri: response.uri};
+          // setPhotoDB(base64Photo);
+          setPhoto(source);
+        }
+      },
+    );
+  };
+
   return (
     <View style={styles.page}>
       <StatusBar
@@ -92,7 +121,12 @@ const Profile = ({navigation}) => {
           </View>
         </View>
       </View>
-      <Popup show={show} onPressOut={() => setShow(false)} />
+      <Popup
+        show={show}
+        onPressOut={() => setShow(false)}
+        photo={takePhoto}
+        gallery={getImage}
+      />
     </View>
   );
 };
