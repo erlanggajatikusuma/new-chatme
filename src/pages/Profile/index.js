@@ -7,10 +7,18 @@ import {
   View,
   Image,
 } from 'react-native';
-import {IcBack, IcCamera, IcDelete, Ilnull, Qrcode} from '../../assets';
-import {colors} from '../../utils';
+import {
+  IcBack,
+  IcCamera,
+  IcDelete,
+  IcLogout,
+  Ilnull,
+  Qrcode,
+} from '../../assets';
+import {colors, showToastWithGravity} from '../../utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Popup} from '../../components';
+import auth from '@react-native-firebase/auth';
 
 const Profile = ({navigation}) => {
   const [photo, setPhoto] = useState(Ilnull);
@@ -74,6 +82,13 @@ const Profile = ({navigation}) => {
     );
   };
 
+  const logout = () => {
+    auth()
+      .signOut()
+      .then(() => showToastWithGravity('Logout Success'))
+      .catch(err => showToastWithGravity(err.message));
+  };
+
   return (
     <View style={styles.page}>
       <StatusBar
@@ -121,6 +136,10 @@ const Profile = ({navigation}) => {
             <Image source={IcDelete} style={styles.qr} />
             <Text style={styles.text}>Delete account</Text>
           </View>
+          <TouchableOpacity style={styles.setting} onPress={logout}>
+            <Image source={IcLogout} style={styles.qr} />
+            <Text style={styles.text}>Logout</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <Popup

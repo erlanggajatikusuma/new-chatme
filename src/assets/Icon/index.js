@@ -12,6 +12,7 @@ import IcContacts from './ic-contacts.png';
 import IcSettings from './ic-settings.svg';
 import IcCamera from './ic-camera.png';
 import IcDelete from './delete.png';
+import IcLogout from './ic-logout.png';
 
 export {
   IcEye,
@@ -28,4 +29,5 @@ export {
   IcSettings,
   IcCamera,
   IcDelete,
+  IcLogout,
 };
