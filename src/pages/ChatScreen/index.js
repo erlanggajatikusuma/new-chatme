@@ -56,14 +56,12 @@ const ChatScreen = ({navigation, route}) => {
               data: newDataChat,
             });
           });
-          console.log('ALL DATA CHAT ===> ', allDataChat);
           setChatData(allDataChat);
         }
       });
   }, [dataContact.data.uid, user.uid]);
 
   const handleType = val => {
-    console.log('CHAT DATA ==> ', chatData);
     setChatContent(val);
     if (val.length === 0) {
       setLoading(true);
@@ -77,7 +75,7 @@ const ChatScreen = ({navigation, route}) => {
 
     const chatID = `${user.uid}_${dataContact.data.uid}`;
     const urlFirebase = `chatting/${chatID}/allChat/${setDateChat(today)}`;
-    const urlMessageUser = `mesagges/${user.uid}/${chatID}`;
+    const urlMessageUser = `messages/${user.uid}/${chatID}`;
     const urlMessageContact = `messages/${dataContact.data.uid}/${chatID}`;
 
     const dataHistoryChatUser = {
@@ -111,7 +109,6 @@ const ChatScreen = ({navigation, route}) => {
         database().ref(urlMessageContact).set(dataHistoryChatContact);
       })
       .catch(error => {
-        console.log('ERROR SEND ==> ', error.message);
         showToastWithGravity(error.message);
       });
   };
@@ -126,7 +123,7 @@ const ChatScreen = ({navigation, route}) => {
           </TouchableOpacity>
           <Image style={styles.img} />
           <View>
-            <Text>Mom</Text>
+            <Text>{dataContact.data.name}</Text>
             <Text>Online</Text>
           </View>
         </View>

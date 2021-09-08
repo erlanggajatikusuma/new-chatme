@@ -9,6 +9,7 @@ const Contacts = ({navigation}) => {
   const [listContact, setListContact] = useState([]);
 
   useEffect(() => {
+    console.log('USE EFFECT CONTACT');
     getData('user').then(res => {
       const asynctore = res;
       setUser(asynctore);
@@ -38,7 +39,7 @@ const Contacts = ({navigation}) => {
         {listContact?.map(contact => {
           return (
             <ContactList
-              key={contact.uid}
+              key={contact.id}
               name={contact.data.name}
               email={contact.data.email}
               onPress={() => navigation.navigate('ChatScreen', contact)}

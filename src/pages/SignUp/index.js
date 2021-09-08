@@ -30,6 +30,7 @@ const SignUp = ({navigation}) => {
           name: form.name,
           email: form.email,
           uid: success.user.uid,
+          photo: '',
         };
 
         database().ref(`users/${success.user.uid}/profile`).set(data);
