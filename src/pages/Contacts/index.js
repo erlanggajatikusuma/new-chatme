@@ -1,14 +1,62 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {colors, getData} from '../../utils';
+import database from '@react-native-firebase/database';
+import {ContactList} from '../../components';
 
-const Contacts = () => {
+const Contacts = ({navigation}) => {
+  const [user, setUser] = useState({});
+  const [listContact, setListContact] = useState([]);
+
+  useEffect(() => {
+    getData('user').then(res => {
+      const asynctore = res;
+      setUser(asynctore);
+    });
+    getContact();
+  }, []);
+
+  const getContact = () => {
+    database()
+      .ref(`users/${user.uid}/contacts`)
+      .on('value', snapshot => {
+        if (snapshot.val()) {
+          const dataSnapshot = snapshot.val();
+          const contacts = [];
+
+          Object.keys(dataSnapshot).map(item => {
+            contacts.push({id: item, data: dataSnapshot[item]});
+          });
+          setListContact(contacts);
+          console.log('CONTACTS ==> ', contacts);
+        }
+      });
+  };
   return (
-    <View>
-      <Text>Contact Page</Text>
+    <View style={styles.page}>
+      <ScrollView>
+        {listContact?.map(contact => {
+          return (
+            <ContactList
+              key={contact.uid}
+              name={contact.data.name}
+              email={contact.data.email}
+              onPress={() => navigation.navigate('ChatScreen', contact)}
+            />
+          );
+        })}
+      </ScrollView>
     </View>
   );
 };
 
 export default Contacts;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  page: {
+    paddingTop: StatusBar.currentHeight,
+    flex: 1,
+    backgroundColor: colors.white,
+    paddingHorizontal: 27,
+  },
+});

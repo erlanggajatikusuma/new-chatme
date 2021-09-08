@@ -35,7 +35,7 @@ const TextInput = ({
             <IcSend />
           </View>
         ) : (
-          <TouchableOpacity style={styles.send(loading)}>
+          <TouchableOpacity onPress={onPress} style={styles.send(loading)}>
             <IcSendActive />
           </TouchableOpacity>
         )}

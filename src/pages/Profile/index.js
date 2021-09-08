@@ -85,7 +85,10 @@ const Profile = ({navigation}) => {
   const logout = () => {
     auth()
       .signOut()
-      .then(() => showToastWithGravity('Logout Success'))
+      .then(() => {
+        navigation.replace('Login');
+        showToastWithGravity('Logout Success');
+      })
       .catch(err => showToastWithGravity(err.message));
   };
 
@@ -145,8 +148,8 @@ const Profile = ({navigation}) => {
       <Popup
         show={show}
         onPressOut={() => setShow(false)}
-        photo={takePhoto}
-        gallery={getImage}
+        onPress1={getImage}
+        onPress2={takePhoto}
       />
     </View>
   );

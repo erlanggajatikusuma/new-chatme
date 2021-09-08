@@ -47,7 +47,7 @@ const DrawerContent = props => {
               )}
               inactiveTintColor={colors.secondary}
               label="Invite Friends"
-              onPress={() => props.navigation.navigate('Contacts')}
+              onPress={() => props.navigation.navigate('Invite')}
             />
           </View>
         </View>

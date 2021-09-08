@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, Header, TextInput} from '../../components';
-import {colors, showToastWithGravity, useForm} from '../../utils';
+import {colors, showToastWithGravity, storeData, useForm} from '../../utils';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -33,8 +33,9 @@ const SignUp = ({navigation}) => {
         };
 
         database().ref(`users/${success.user.uid}/profile`).set(data);
+        database().ref(`registered/${success.user.uid}/`).set(data);
 
-        // storeData('user', data);
+        storeData('user', data);
         navigation.replace('Home');
         console.log('register sukses: ', success);
       })

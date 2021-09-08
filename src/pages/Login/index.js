@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button, Gap, Header, Link, TextInput} from '../../components';
-import {colors, showToastWithGravity, useForm} from '../../utils';
+import {colors, showToastWithGravity, storeData, useForm} from '../../utils';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 
@@ -25,7 +25,7 @@ const Login = ({navigation}) => {
           .once('value')
           .then(resDB => {
             if (resDB.val()) {
-              // storeData('user', resDB.val());
+              storeData('user', resDB.val());
               navigation.replace('Home');
             }
           });

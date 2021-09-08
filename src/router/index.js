@@ -6,6 +6,7 @@ import {
   ChatScreen,
   Contacts,
   ForgotPassword,
+  Invite,
   Login,
   Messages,
   Profile,
@@ -89,6 +90,11 @@ const Router = () => {
       <Stack.Screen
         name="QRScreen"
         component={QRScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Invite"
+        component={Invite}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
