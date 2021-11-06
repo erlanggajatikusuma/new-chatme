@@ -26,23 +26,25 @@ const SignUp = ({navigation}) => {
       .then(success => {
         // setLoading(false);
         setForm('reset');
+        const url =
+          'https://firebasestorage.googleapis.com/v0/b/chatme11-1e5d6.appspot.com/o/null-photo.png?alt=media&token=2b9ff84d-6734-41f7-b59a-c8bd99754779';
         const data = {
           name: form.name,
           email: form.email,
           uid: success.user.uid,
-          photo: '',
+          photo: url,
         };
 
         database().ref(`users/${success.user.uid}/profile`).set(data);
         database().ref(`registered/${success.user.uid}/`).set(data);
 
         storeData('user', data);
-        navigation.replace('Home');
+        navigation.replace('Login');
         console.log('register sukses: ', success);
       })
       .catch(error => {
         // setLoading(false);
-        console.log('ERROR ==> ', error);
+        console.log('ERROR ==> ', error.message);
         showToastWithGravity(error.message);
       });
   };

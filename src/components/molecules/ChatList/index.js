@@ -6,7 +6,7 @@ const ChatList = ({image, name, chat, onPress}) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <Image source={image} />
+        <Image source={image} style={styles.image} />
         <View style={styles.chatContent}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.chat}>{chat}</Text>

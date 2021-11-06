@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {ProfileDummy} from '../../assets';
 import {ChatList, Gap, Header} from '../../components';
 import {colors, getData} from '../../utils';
 import database from '@react-native-firebase/database';
@@ -10,7 +9,7 @@ const Messages = ({navigation}) => {
   const [historyChat, setHistoryChat] = useState([]);
 
   useEffect(() => {
-    getData('user').then(res => setUser(res));
+    getDataUserLocal();
 
     const rootDB = database().ref();
     const urlHistory = `messages/${user.uid}/`;
@@ -38,21 +37,27 @@ const Messages = ({navigation}) => {
     });
   }, [user.uid]);
 
+  const getDataUserLocal = () => {
+    getData('user').then(res => {
+      setUser(res);
+    });
+  };
+
   return (
     <View style={styles.page}>
       <Header main onPress={() => navigation.openDrawer()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         {historyChat.map(chat => {
           const detailContact = {
-            id: chat.detailContact.uid,
-            data: chat.detailContact,
+            id: chat?.detailContact?.uid,
+            data: chat?.detailContact,
           };
           return (
             <ChatList
               key={chat.id}
-              image={ProfileDummy}
-              name={chat.detailContact.name}
-              chat={chat.lastContentChat}
+              image={{uri: chat?.detailContact?.photo}}
+              name={chat?.detailContact?.name}
+              chat={chat?.lastContentChat}
               onPress={() => navigation.navigate('ChatScreen', detailContact)}
             />
           );

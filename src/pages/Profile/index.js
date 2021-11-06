@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StatusBar,
   StyleSheet,
@@ -15,14 +15,25 @@ import {
   Ilnull,
   Qrcode,
 } from '../../assets';
-import {colors, showToastWithGravity} from '../../utils';
+import {colors, getData, showToastWithGravity, storeData} from '../../utils';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Popup} from '../../components';
 import auth from '@react-native-firebase/auth';
+import database from '@react-native-firebase/database';
 
 const Profile = ({navigation}) => {
-  const [photo, setPhoto] = useState(Ilnull);
+  const [photo, setPhoto] = useState(
+    'https://firebasestorage.googleapis.com/v0/b/chatme11-1e5d6.appspot.com/o/null-photo.png?alt=media&token=2b9ff84d-6734-41f7-b59a-c8bd99754779',
+  );
   const [show, setShow] = useState(false);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getData('user').then(res => {
+      setPhoto(res.photo);
+      setUser(res);
+    });
+  }, []);
 
   const getImage = () => {
     launchImageLibrary(
@@ -34,7 +45,6 @@ const Profile = ({navigation}) => {
         includeBase64: true,
       },
       response => {
-        console.log('RES IMAGE ==> ', response);
         if (response.didCancel || response.error) {
           // showError('Oops, sepertinya anda tidak memilih fotonya');
           // showMessage({
@@ -44,10 +54,19 @@ const Profile = ({navigation}) => {
           //   color: colors.white,
           // });
         } else {
-          const base64Photo = `data:${response.type};base64, ${response.base64}`;
-          const source = {uri: response.uri};
-          // setPhotoDB(base64Photo);
-          setPhoto(source);
+          const base64Photo = `data:${response.assets[0].type};base64, ${response.assets[0].base64}`;
+          // const source = {uri: response.assets[0].uri};
+
+          const data = {...user, photo: base64Photo};
+          storeData('user', data);
+
+          database()
+            .ref(`users/${user.uid}/profile`)
+            .update({photo: base64Photo});
+          database()
+            .ref(`registered/${user.uid}/`)
+            .update({photo: base64Photo});
+          setPhoto(base64Photo);
         }
       },
     );
@@ -63,7 +82,6 @@ const Profile = ({navigation}) => {
         includeBase64: true,
       },
       response => {
-        console.log('RES IMAGE ==> ', response);
         if (response.didCancel || response.error) {
           // showError('Oops, sepertinya anda tidak memilih fotonya');
           // showMessage({
@@ -73,10 +91,19 @@ const Profile = ({navigation}) => {
           //   color: colors.white,
           // });
         } else {
-          const base64Photo = `data:${response.type};base64, ${response.base64}`;
-          const source = {uri: response.uri};
-          // setPhotoDB(base64Photo);
-          setPhoto(source);
+          const base64Photo = `data:${response.assets[0].type};base64, ${response.assets[0].base64}`;
+          // const source = {uri: response.assets[0].uri};
+
+          const data = {...user, photo: base64Photo};
+          storeData('user', data);
+
+          database()
+            .ref(`users/${user.uid}/profile`)
+            .update({photo: base64Photo});
+          database()
+            .ref(`registered/${user.uid}/`)
+            .update({photo: base64Photo});
+          setPhoto(base64Photo);
         }
       },
     );
@@ -111,7 +138,7 @@ const Profile = ({navigation}) => {
       {/* BODY */}
       <View>
         <View style={styles.imgContainer}>
-          <Image source={photo} style={styles.img} />
+          <Image source={{uri: photo}} style={styles.img} />
           <TouchableOpacity
             activeOpacity={0.5}
             style={styles.cameraContainer}
@@ -121,11 +148,11 @@ const Profile = ({navigation}) => {
         </View>
         <View style={styles.desc}>
           <Text style={styles.label}>Account</Text>
-          <Text>kusuma@gmail.com</Text>
+          <Text>{user.email}</Text>
         </View>
         <View style={styles.desc}>
-          <Text>name</Text>
-          <Text>Gloria Mckinney</Text>
+          <Text>Name</Text>
+          <Text>{user.name}</Text>
         </View>
         <View>
           <Text style={{fontWeight: 'bold', fontSize: 20}}>Settings</Text>

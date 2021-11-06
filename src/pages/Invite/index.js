@@ -77,6 +77,7 @@ const Invite = () => {
             key={user.uid}
             name={user.name}
             email={user.email}
+            img={{uri: user.photo}}
             onPress={() => handleShow(user)}
           />
         ))}

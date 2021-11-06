@@ -27,10 +27,7 @@ const ChatScreen = ({navigation, route}) => {
   const [chatData, setChatData] = useState([]);
 
   useEffect(() => {
-    getData('user').then(res => {
-      const asynctore = res;
-      setUser(asynctore);
-    });
+    getData('user').then(res => setUser(res));
     const chatID = `${user.uid}_${dataContact.data.uid}`;
     const urlFirebase = `chatting/${chatID}/allChat/`;
     database()
@@ -121,7 +118,7 @@ const ChatScreen = ({navigation, route}) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <IcBack />
           </TouchableOpacity>
-          <Image style={styles.img} />
+          <Image source={{uri: dataContact.data.photo}} style={styles.img} />
           <View>
             <Text>{dataContact.data.name}</Text>
             <Text>Online</Text>
@@ -137,6 +134,7 @@ const ChatScreen = ({navigation, route}) => {
             <View key={chat.id}>
               <Text style={styles.chatDate}>{chat.id}</Text>
               {chat.data.map(itemChat => {
+                console.log('DATA CHAT ==> ', itemChat);
                 const isMe = itemChat.data.sendBy === user.uid;
                 return (
                   <ChatItem
@@ -144,9 +142,7 @@ const ChatScreen = ({navigation, route}) => {
                     isMe={isMe}
                     text={itemChat.data.chatContent}
                     date={itemChat.data.chatTime}
-                    photo={
-                      isMe ? null : {uri: dataContact.data.photo ? null : null}
-                    }
+                    photo={isMe ? null : {uri: dataContact.data.photo}}
                   />
                 );
               })}

@@ -1,19 +1,19 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from '@react-navigation/drawer';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {IcBack, IcContacts, IcInviteF, IcSettings} from '../../../assets';
-import {colors} from '../../../utils';
+import {colors, getData} from '../../../utils';
 
 const DrawerContent = props => {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getData('user').then(res => setUser(res));
+  }, [props.navigation]);
+
   return (
     <View style={{flex: 1}}>
       <DrawerContentScrollView {...props}>
         <View style={styles.content}>
-          {/* <DrawerItemList {...props} /> */}
           <View style={styles.profileContent}>
             <View style={styles.setting}>
               <TouchableOpacity onPress={() => props.navigation.closeDrawer()}>
@@ -26,9 +26,9 @@ const DrawerContent = props => {
             </View>
             {/* PROFILE */}
             <View style={styles.profileContainer}>
-              <Image style={styles.img} />
+              <Image source={{uri: user.photo}} style={styles.img} />
               <Text numberOfLines={3} style={styles.name}>
-                Gloria Mickenny
+                {user.name}
               </Text>
             </View>
           </View>

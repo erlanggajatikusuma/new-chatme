@@ -9,15 +9,8 @@ const Contacts = ({navigation}) => {
   const [listContact, setListContact] = useState([]);
 
   useEffect(() => {
+    getData('user').then(res => setUser(res));
     console.log('USE EFFECT CONTACT');
-    getData('user').then(res => {
-      const asynctore = res;
-      setUser(asynctore);
-    });
-    getContact();
-  }, []);
-
-  const getContact = () => {
     database()
       .ref(`users/${user.uid}/contacts`)
       .on('value', snapshot => {
@@ -32,7 +25,8 @@ const Contacts = ({navigation}) => {
           console.log('CONTACTS ==> ', contacts);
         }
       });
-  };
+  }, [user.uid]);
+
   return (
     <View style={styles.page}>
       <ScrollView>
@@ -42,6 +36,7 @@ const Contacts = ({navigation}) => {
               key={contact.id}
               name={contact.data.name}
               email={contact.data.email}
+              img={{uri: contact.data.photo}}
               onPress={() => navigation.navigate('ChatScreen', contact)}
             />
           );
